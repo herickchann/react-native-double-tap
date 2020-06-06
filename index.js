@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 
 export default class DoubleTap extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export default class DoubleTap extends Component {
     this.timer = false;
   }
 
-  _onTap = () => {
+  _onTap = (e) => {
     // get the instance of time when pressed
     let now = new Date().getTime();
 
@@ -26,7 +26,7 @@ export default class DoubleTap extends Component {
       //start a timer --> if a second tap doesnt come in by the delay, trigger singleTap event handler
       this.timer = setTimeout(() => {
         //check if user passed in prop
-        this.props.singleTap ? this.props.singleTap() : null;
+        this.props.singleTap ? this.props.singleTap(e) : null;
 
         // reset back to initial state
         this.firstPress = true;
@@ -42,7 +42,7 @@ export default class DoubleTap extends Component {
         this.timer && clearTimeout(this.timer);
 
         //check if user passed in prop for double click
-        this.props.doubleTap ? this.props.doubleTap() : null;
+        this.props.doubleTap ? this.props.doubleTap(e) : null;
 
         // reset back to initial state
         this.firstPress = true;
@@ -52,9 +52,9 @@ export default class DoubleTap extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this._onTap}>
+      <TouchableOpacity activeOpacity={1.0} onPress={(e) => this._onTap(e)}>
         {this.props.children}
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 
