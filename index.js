@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableWithoutFeedback } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export default class DoubleTap extends Component {
   constructor(props) {
